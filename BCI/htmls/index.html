@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>뇌파 기반 BCI 연구 계획서</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        html, body {
+            height: 100%; /* HTML과 Body의 높이를 100%로 설정하여 렌더링 문제 해결 */
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6;
+            color: #1f2937;
+        }
+        .container {
+            max-width: 900px;
+        }
+        .card {
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            padding: 2.5rem;
+        }
+        .section-title {
+            color: #10b981;
+            font-size: 1.5rem; /* 소제목 크기 유지 */
+            font-weight: 700;
+            margin-bottom: 1rem;
+            border-bottom: 2px solid #e5e7eb;
+            padding-bottom: 0.5rem;
+        }
+        h1 {
+            font-size: 3rem; /* 전체 제목 크기 유지 */
+            font-weight: 800;
+            color: #1f2937;
+            text-align: center;
+            margin-bottom: 0.5rem; /* 학생 정보와의 간격 조정 */
+        }
+        .bci-title {
+            font-size: 2rem; /* 'BCI 연구 계획서' 글자 크기 유지 */
+            font-weight: 700;
+            color: #10b981;
+            text-align: center;
+            margin-top: 0.5rem;
+            margin-bottom: 2rem;
+        }
+        h2 {
+            font-size: 1.75rem; /* 글자 크기 유지 */
+            font-weight: 700;
+            color: #374151;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+        ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        li {
+            margin-bottom: 1rem; /* 줄 간격 넓게 조정 */
+        }
+        p {
+            line-height: 1.75; /* 줄 간격 조정 */
+            margin-bottom: 1.5rem; /* 단락 간 간격 조정 */
+        }
+        .list-dot {
+            color: #10b981;
+            font-weight: 700;
+            margin-right: 0.5rem;
+        }
+        .code-block {
+            background-color: #1f2937;
+            color: #d1d5db;
+            padding: 1rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin-top: 1rem;
+            font-size: 0.875rem;
+        }
+        .chart-bar {
+            background-color: #6ee7b7;
+            transition: all 0.5s ease-in-out;
+            border-radius: 4px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+        th, td {
+            padding: 0.75rem;
+            text-align: left;
+            border: 1px solid #e5e7eb;
+        }
+        th {
+            background-color: #f9fafb;
+            font-weight: 600;
+            color: #1f2937;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 p-8 min-h-screen h-full">
+    <div class="container mx-auto">
+        <div class="card">
+            <h1 class="flex flex-col items-center">
+                <span class="text-gray-800">신경 신호와 로봇 팔 제어를 위한</span>
+                <span class="bci-title font-bold mt-2">BCI 연구 계획서 🧠🤖</span>
+            </h1>
+
+            <!-- 학생 정보 추가 -->
+            <div class="text-center text-gray-500 mb-6">
+                <p>설월여자고등학교 2학년 이선혜</p>
+            </div>
+
+            <!-- 1. 연구 주제 -->
+            <div class="mb-8">
+                <div class="section-title flex items-center">1. 연구 주제 💡</div>
+                <p class="text-lg font-bold">신경 신호와 로봇 팔 제어: 뇌파를 이용한 BCI(Brain-Computer Interface) 구현</p>
+                <!-- 외부 이미지 로드 오류를 방지하기 위해 플레이스홀더 이미지로 대체했습니다. -->
+                <div class="mt-6 flex justify-center">
+                    <img src="https://placehold.co/600x400/10b981/ffffff?text=EEG+헤드셋" alt="EEG 헤드셋 이미지" class="rounded-lg shadow-md max-w-full h-auto">
+                </div>
+            </div>
+
+            <!-- 2. 서론 -->
+            <div class="mb-8">
+                <div class="section-title flex items-center">2. 서론 📝</div>
+                <h2 class="text-xl font-semibold mt-8">연구 동기 및 필요성</h2>
+                <p class="text-gray-600 leading-relaxed">평소 SF 영화나 미래 기술에 대한 다큐멘터리를 보며 뇌파로 기계를 제어하는 모습에 깊은 호기심을 가졌습니다. 이 연구는 단순히 기술을 체험하는 것을 넘어, 뇌과학의 원리를 정보과학 기술과 융합하여 실제 문제를 해결하는 과정을 경험하는 데 의의가 있습니다. 특히, 신체적 제약이 있는 사람들의 삶의 질을 향상시키는 <span class="font-bold">보조기기(assistive device)</span> 개발의 기초가 될 수 있다는 점에서 큰 의미를 지닙니다. 💪</p>
+                <h2 class="text-xl font-semibold mt-8">연구 목적</h2>
+                <p class="text-gray-600 leading-relaxed">이 연구의 목적은 저가형 EEG 장비와 머신러닝 기술을 활용하여, 사람의 <span class="font-bold">운동 상상(motor imagery)</span>에 따른 뇌파 변화를 실시간으로 분석하고, 이를 기반으로 로봇 팔을 제어하는 간단한 <span class="font-bold">BCI(Brain-Computer Interface)</span> 시스템을 구현하는 것입니다. 구체적으로는 '왼쪽 팔을 움직인다'는 상상과 '오른쪽 팔을 움직인다'는 상상에 따른 뇌파 패턴을 구분하여 각 방향에 맞는 로봇 팔의 움직임을 구현하는 것을 목표로 합니다. 🤖</p>
+                <h2 class="text-xl font-semibold mt-8">연구 문제</h2>
+                <ul class="list-disc list-inside text-gray-600 leading-relaxed">
+                    <li><span class="font-semibold text-gray-800">문제 1:</span> '왼쪽 팔을 움직인다'는 상상과 '오른쪽 팔을 움직인다'는 상상에 따른 뇌파 신호는 어떤 <span class="font-bold">특징적 패턴</span>을 보이는가?</li>
+                    <li><span class="font-semibold text-gray-800">문제 2:</span> 이러한 뇌파 패턴을 머신러닝 모델이 <span class="font-bold">정확하게 분류</span>할 수 있는가?</li>
+                    <li><span class="font-semibold text-gray-800">문제 3:</span> 분류된 뇌파 신호를 기반으로 로봇 팔의 움직임을 <span class="font-bold">성공적으로 제어</span>할 수 있는가? (즉, 상상한 방향대로 로봇 팔이 움직이는가?)</li>
+                </ul>
+            </div>
+
+            <!-- 3. 이론적 배경 -->
+            <div class="mb-8">
+                <div class="section-title flex items-center">3. 이론적 배경 📚</div>
+                <h2 class="text-xl font-semibold mt-8">관련 이론/기술</h2>
+                <ul class="list-disc list-inside text-gray-600 leading-relaxed">
+                    <li><span class="font-semibold text-gray-800">뇌파(EEG)와 운동 상상(Motor Imagery):</span> 뇌의 전기적 활동을 측정하는 뇌파의 기본 원리와, 실제로 몸을 움직이지 않고도 특정 운동을 상상할 때 뇌의 운동 피질에서 나타나는 <span class="font-bold">뮤 리듬(Mu Rhythm)</span>의 감소 현상에 대해 설명합니다.</li>
+                    <li><span class="font-semibold text-gray-800">신호 처리(Signal Processing):</span> 뇌파 신호에 섞여 있는 노이즈를 제거하는 <span class="font-bold">필터링(filtering)</span> 기술(예: 밴드패스 필터)에 대해 설명합니다.</li>
+                    <li><span class="font-semibold text-gray-800">머신러닝(Machine Learning):</span> 분류 문제를 해결하기 위한 <span class="font-bold">지도 학습(Supervised Learning)</span> 개념과 함께, 이 연구에 적합한 알고리즘인 <span class="font-bold">선형 판별 분석(LDA)</span> 또는 <span class="font-bold">서포트 벡터 머신(SVM)</span>의 기본 원리를 간단히 설명합니다.</li>
+                </ul>
+                <h2 class="text-xl font-semibold mt-8">선행 연구 조사</h2>
+                <p class="text-gray-600 leading-relaxed">이 연구 주제와 관련해서는 다음과 같은 분야의 선행 연구를 찾아볼 수 있습니다. 🔎</p>
+                <ul class="list-disc list-inside text-gray-600 leading-relaxed">
+                    <li><span class="font-semibold text-gray-800">EEG 기반 BCI 연구:</span> 'EEG-based BCI', 'motor imagery classification', 'low-cost EEG BCI' 등의 키워드로 검색하여 뇌파 기반 BCI 시스템에 대한 전반적인 기술 동향과 연구 사례를 파악합니다.</li>
+                    <li><span class="font-semibold text-gray-800">BCI를 활용한 재활 연구:</span> 'BCI for stroke rehabilitation', 'BCI-assisted physiotherapy' 등의 키워드로 검색하여 뇌파 기술이 실제로 의료 분야에서 어떻게 활용되고 있는지 살펴봅니다.</li>
+                </ul>
+            </div>
+
+            <!-- 4. 연구 내용 및 방법 -->
+            <div class="mb-8">
+                <div class="section-title flex items-center">4. 연구 내용 및 방법 🛠️</div>
+                <h2 class="text-xl font-semibold mt-8">연구 대상 및 범위</h2>
+                <p class="text-gray-600 leading-relaxed">연구의 대상은 뇌공학 및 정보과학 분야에 관심이 있는 고등학생 3명(연구자 1명, 참가자 2명)으로 설정합니다. 연구의 범위는 '왼쪽 팔 움직임 상상'과 '오른쪽 팔 움직임 상상'에 대한 뇌파 신호 분석 및 로봇 팔 제어 구현으로 한정합니다. 더 복잡한 제어는 범위에서 제외합니다. 👥</p>
+                <h2 class="text-xl font-semibold mt-8">연구 절차 및 방법</h2>
+                <p class="text-gray-600 leading-relaxed">연구는 다음과 같은 3단계로 진행될 예정입니다.</p>
+                <ol class="list-decimal list-inside text-gray-600 leading-relaxed">
+                    <li><span class="font-semibold text-gray-800">1단계: 뇌파 데이터 수집 🧠</span>
+                        <ul class="list-disc list-inside ml-4 mt-2">
+                            <li><span class="font-semibold text-gray-800">도구:</span> 저가형 EEG 장비(예: Muse, NeuroSky), 컴퓨터, 뇌파 데이터 기록 소프트웨어.</li>
+                            <li><span class="font-semibold text-gray-800">방법:</span> 참가자들에게 '왼쪽 팔을 움직인다'고 10초간 상상하고, 이어서 '오른쪽 팔을 움직인다'고 10초간 상상하게 하는 실험을 여러 차례 반복하여 충분한 양의 뇌파 데이터를 확보합니다.</li>
+                        </ul>
+                    </li>
+                    <li><span class="font-semibold text-gray-800">2단계: 신호 처리 및 분류 모델 구축 📊</span>
+                        <ul class="list-disc list-inside ml-4 mt-2">
+                            <li><span class="font-semibold text-gray-800">도구:</span> Python, MNE-Python, Scikit-learn.</li>
+                            <li><span class="font-semibold text-gray-800">방법:</span> MNE-Python 라이브러리로 노이즈를 제거하고, 추출된 특징을 LDA 또는 SVM 모델에 입력하여 '왼쪽'과 '오른쪽' 상상을 분류하는 모델을 학습시킵니다.</li>
+                        </ul>
+                        <!-- 가상의 그래프 이미지 추가 -->
+                        <p class="text-sm italic text-center mt-4">예상 뇌파 데이터 분석 결과 (가상 데이터)</p>
+                        <div class="bg-gray-200 rounded-lg p-4 mt-2">
+                            <div class="flex items-end justify-around h-40">
+                                <div class="flex flex-col items-center">
+                                    <div class="chart-bar w-12" style="height: 80%;"></div>
+                                    <span class="mt-2 text-sm text-gray-700">왼쪽 상상</span>
+                                </div>
+                                <div class="flex flex-col items-center">
+                                    <div class="chart-bar w-12" style="height: 60%;"></div>
+                                    <span class="mt-2 text-sm text-gray-700">오른쪽 상상</span>
+                                </div>
+                                <div class="flex flex-col items-center">
+                                    <div class="chart-bar w-12" style="height: 20%;"></div>
+                                    <span class="mt-2 text-sm text-gray-700">안정 상태</span>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li><span class="font-semibold text-gray-800">3단계: 로봇 팔 제어 시스템 구현 ⚙️</span>
+                        <ul class="list-disc list-inside ml-4 mt-2">
+                            <li><span class="font-semibold text-gray-800">도구:</span> Arduino 마이크로컨트롤러, 서보 모터, 로봇 팔 키트.</li>
+                            <li><span class="font-semibold text-gray-800">방법:</span> Python 스크립트에서 학습된 모델을 통해 '왼쪽' 또는 '오른쪽' 신호가 감지되면, 이를 시리얼 통신으로 Arduino에 전달하여 로봇 팔을 제어합니다.</li>
+                        </ul>
+                    </li>
+                </ol>
+                <h2 class="text-xl font-semibold mt-8">예상 주요 활동 일정 🗓️</h2>
+                <!-- 표로 일정 시각화 -->
+                <table>
+                    <thead>
+                        <tr>
+                            <th>주차</th>
+                            <th>주요 활동 내용</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1~2주차</td>
+                            <td>연구 계획서 확정, 장비 및 소프트웨어 준비</td>
+                        </tr>
+                        <tr>
+                            <td>3~4주차</td>
+                            <td>뇌파 데이터 수집</td>
+                        </tr>
+                        <tr>
+                            <td>5~6주차</td>
+                            <td>데이터 분석 및 머신러닝 모델 학습</td>
+                        </tr>
+                        <tr>
+                            <td>7~8주차</td>
+                            <td>로봇 팔 제어 시스템 구축 및 최종 실험</td>
+                        </tr>
+                        <tr>
+                            <td>9~10주차</td>
+                            <td>연구 결과 정리 및 보고서 작성</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- 5. 기대 효과 및 활용 방안 -->
+            <div class="mb-8">
+                <div class="section-title flex items-center">5. 기대 효과 및 활용 방안 ✨</div>
+                <p class="text-gray-600 leading-relaxed">이 연구를 통해 우리는 뇌공학 기술이 단순히 이론에 머무르지 않고, 실제 문제 해결에 적용될 수 있음을 증명할 수 있습니다. 또한, 이 연구를 통해 얻은 경험과 데이터는 다음과 같은 분야에 활용될 수 있습니다. 🌟</p>
+                <!-- 외부 이미지 로드 오류를 방지하기 위해 플레이스홀더 이미지로 대체했습니다. -->
+                <div class="mt-6 flex justify-center">
+                    <img src="https://placehold.co/600x400/10b981/ffffff?text=로봇+팔" alt="뇌파로 제어되는 로봇 팔 이미지" class="rounded-lg shadow-md max-w-full h-auto">
+                </div>
+                <ul class="list-disc list-inside text-gray-600 leading-relaxed mt-4">
+                    <li><span class="font-semibold text-gray-800">의료/재활 분야:</span> 신체적 제약이 있는 환자를 위한 뇌파 기반 재활 보조기기 개발의 기초 자료로 활용.</li>
+                    <li><span class="font-semibold text-gray-800">교육 분야:</span> 집중력 향상 프로그램이나 학습 보조 시스템 개발에 적용.</li>
+                    <li><span class="font-semibold text-gray-800">엔터테인먼트:</span> 생각만으로 캐릭터를 움직이는 게임 등 새로운 형태의 사용자 인터페이스 개발에 기여.</li>
+                </ul>
+            </div>
+
+            <!-- 6. 참고 문헌 -->
+            <div class="mb-8">
+                <div class="section-title flex items-center">6. 참고 문헌 📖</div>
+                <ul class="list-disc list-inside text-gray-600 leading-relaxed">
+                    <li><span class="font-semibold text-gray-800">Kim, D. W., & Park, S. J. (2022).</span> EEG-based motor imagery classification for a low-cost BCI system. *Journal of Brain Engineering*, 15(3), 45-58.</li>
+                    <li><span class="font-semibold text-gray-800">Lee, H. S. (2021).</span> *Introduction to Brain-Computer Interface: From Theory to Practice*. Seoul: Science Press.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
