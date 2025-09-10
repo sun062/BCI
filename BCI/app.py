@@ -13,10 +13,10 @@ current_dir = os.path.dirname(os.path.abspath(__file__))
 
 # 사이드바에 버튼 추가
 st.sidebar.header("페이지 이동")
-if st.sidebar.button("연구 계획서 보기 (메인)"):
+if st.sidebar.button("연구 계획서 보기"):
     st.session_state.page = "index1"
 
-if st.sidebar.button("두 번째 페이지 보기"):
+if st.sidebar.button("조 편성 프로그램 보기"):
     st.session_state.page = "index2"
 
 # 초기 페이지 상태 설정
@@ -45,3 +45,4 @@ elif st.session_state.page == "index2":
         st.error(f"오류: HTML 파일을 찾을 수 없습니다. '{html_file_path}' 경로를 확인해 주세요.")
     except Exception as e:
         st.error(f"HTML 파일을 불러오는 중 오류가 발생했습니다: {e}")
+
