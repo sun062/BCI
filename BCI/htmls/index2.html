@@ -11,24 +11,66 @@
             font-family: 'Inter', sans-serif;
             background-color: #f3f4f6;
         }
+        .scrollable-list {
+            max-height: 200px;
+            overflow-y: auto;
+        }
     </style>
 </head>
 <body class="bg-gray-100 min-h-screen flex items-center justify-center p-4">
     <div class="bg-white p-8 rounded-xl shadow-lg w-full max-w-4xl">
         <h1 class="text-3xl font-bold text-center mb-6 text-gray-800">학생 조 편성 시뮬레이션</h1>
         <p class="text-center text-gray-600 mb-8">
-            학생들의 관심 분야와 성적을 고려하여 조를 편성합니다. 조 인원은 4~5명으로 자동 조정됩니다.
+            학생들의 정보를 직접 입력하여 조를 편성합니다. 조 인원은 4~5명으로 자동 조정됩니다.
         </p>
 
         <!-- Configuration Section -->
-        <div class="mb-8">
-            <div class="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-4">
-                <label for="studentCount" class="text-lg font-medium text-gray-700 whitespace-nowrap">총 학생 수:</label>
-                <input type="number" id="studentCount" value="20" min="4" class="w-24 p-2 text-center border border-gray-300 rounded-md">
-                <button onclick="runSimulation()" class="bg-blue-600 text-white px-6 py-2 rounded-md font-semibold hover:bg-blue-700 transition duration-300">
-                    시뮬레이션 실행
-                </button>
+        <div class="mb-8 p-6 bg-gray-50 rounded-lg shadow-inner">
+            <h2 class="text-xl font-semibold mb-4 text-gray-700">학생 정보 입력</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+                <input type="text" id="studentName" placeholder="학생 이름" class="p-2 border border-gray-300 rounded-md">
+                <input type="number" id="mathScore" placeholder="수학 성적 (0-100)" min="0" max="100" class="p-2 border border-gray-300 rounded-md">
+                <input type="number" id="scienceScore" placeholder="과학 성적 (0-100)" min="0" max="100" class="p-2 border border-gray-300 rounded-md">
             </div>
+            <div class="flex flex-wrap gap-4 mb-4">
+                <span class="font-medium text-gray-700">관심 분야:</span>
+                <label class="inline-flex items-center text-gray-600">
+                    <input type="checkbox" name="subject" value="공학" class="form-checkbox text-blue-600 rounded">
+                    <span class="ml-2">공학</span>
+                </label>
+                <label class="inline-flex items-center text-gray-600">
+                    <input type="checkbox" name="subject" value="생명" class="form-checkbox text-blue-600 rounded">
+                    <span class="ml-2">생명</span>
+                </label>
+                <label class="inline-flex items-center text-gray-600">
+                    <input type="checkbox" name="subject" value="화학" class="form-checkbox text-blue-600 rounded">
+                    <span class="ml-2">화학</span>
+                </label>
+                <label class="inline-flex items-center text-gray-600">
+                    <input type="checkbox" name="subject" value="물리" class="form-checkbox text-blue-600 rounded">
+                    <span class="ml-2">물리</span>
+                </label>
+                <label class="inline-flex items-center text-gray-600">
+                    <input type="checkbox" name="subject" value="수학" class="form-checkbox text-blue-600 rounded">
+                    <span class="ml-2">수학</span>
+                </label>
+            </div>
+            <button onclick="addStudent()" class="w-full bg-green-600 text-white px-6 py-2 rounded-md font-semibold hover:bg-green-700 transition duration-300">
+                학생 추가하기
+            </button>
+        </div>
+
+        <div class="mb-8 p-6 bg-gray-50 rounded-lg shadow-inner">
+            <h2 class="text-xl font-semibold mb-4 text-gray-700">입력된 학생 목록 (<span id="studentCountDisplay">0</span>명)</h2>
+            <ul id="studentList" class="scrollable-list space-y-2 text-gray-600">
+                <!-- Students will be dynamically added here -->
+            </ul>
+        </div>
+        
+        <div class="text-center">
+            <button onclick="runSimulation()" id="runButton" class="bg-blue-600 text-white px-8 py-3 rounded-md font-bold text-lg hover:bg-blue-700 transition duration-300">
+                시뮬레이션 실행
+            </button>
         </div>
 
         <!-- Output Section -->
@@ -41,101 +83,109 @@
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            // 시뮬레이션 로직을 실행하는 함수
-            window.runSimulation = function() {
-                const inquirySubjects = ['공학', '생명', '화학', '물리', '수학'];
-                const studentCountInput = document.getElementById('studentCount');
-                let studentCount = parseInt(studentCountInput.value);
+        const studentsData = [];
 
-                if (isNaN(studentCount) || studentCount < 4) {
-                    alert('학생 수는 최소 4명 이상이어야 합니다.');
-                    return;
-                }
-                
-                let students = [];
-                randomSeed(42); // 고정된 시드값 설정
+        // 학생 추가 함수
+        window.addStudent = function() {
+            const name = document.getElementById('studentName').value;
+            const mathScore = parseInt(document.getElementById('mathScore').value);
+            const scienceScore = parseInt(document.getElementById('scienceScore').value);
+            const subjects = Array.from(document.querySelectorAll('input[name="subject"]:checked')).map(cb => cb.value);
 
-                // 학생 데이터 생성
-                for (let i = 1; i <= studentCount; i++) {
-                    const score = Math.floor(pseudoRandom() * 31) + 70; // 70~100점
-                    const numSubjects = Math.floor(pseudoRandom() * 3) + 1;
-                    const subjects = shuffleArray([...inquirySubjects]).slice(0, numSubjects);
-                    
-                    students.push({
-                        id: i,
-                        score: score,
-                        subjects: subjects
-                    });
-                }
-                
-                // 모든 학생을 성적 순으로 정렬
-                students.sort((a, b) => b.score - a.score);
-
-                // 조 개수 계산 (조 인원을 4명 또는 5명으로 맞추기 위함)
-                let numGroups = Math.ceil(studentCount / 5);
-                
-                // 조 배열 생성
-                const groups = Array.from({ length: numGroups }, () => []);
-
-                // '카드 돌리기' 방식으로 학생들을 조에 분배
-                for (let i = 0; i < studentCount; i++) {
-                    const groupIndex = i % numGroups;
-                    groups[groupIndex].push(students[i]);
-                }
-                
-                // 결과 표시
-                displayResults(groups);
-            };
-
-            function displayResults(groups) {
-                const resultsContainer = document.getElementById('results-grid');
-                resultsContainer.innerHTML = '';
-                
-                groups.forEach((group, index) => {
-                    const groupCard = document.createElement('div');
-                    groupCard.className = 'bg-gray-50 p-6 rounded-lg shadow-md border border-gray-200';
-                    groupCard.innerHTML = `
-                        <h3 class="text-xl font-semibold mb-3 text-gray-700">${index + 1}조 (인원: ${group.length}명)</h3>
-                        <ul class="space-y-2 text-gray-600">
-                            ${group.map(student => `
-                                <li class="p-2 bg-white rounded-md shadow-sm border border-gray-100 flex items-center justify-between">
-                                    <span class="font-medium">학생 ${student.id}</span>
-                                    <span class="text-sm text-gray-500">성적: ${student.score}점, 분야: ${student.subjects.join(', ')}</span>
-                                </li>
-                            `).join('')}
-                        </ul>
-                    `;
-                    resultsContainer.appendChild(groupCard);
-                });
-
-                document.getElementById('results-container').scrollIntoView({ behavior: 'smooth' });
+            // 입력 값 유효성 검사
+            if (!name || isNaN(mathScore) || isNaN(scienceScore) || subjects.length === 0) {
+                alert('모든 정보를 올바르게 입력해주세요.');
+                return;
             }
 
-            // --- 의사 난수 생성기 구현 (파이썬 random.seed()와 유사) ---
-            let seed;
-            function randomSeed(s) {
-                seed = s;
+            if (mathScore < 0 || mathScore > 100 || scienceScore < 0 || scienceScore > 100) {
+                alert('성적은 0에서 100 사이의 값이어야 합니다.');
+                return;
             }
 
-            function pseudoRandom() {
-                const x = Math.sin(seed++) * 10000;
-                return x - Math.floor(x);
-            }
+            // 학생 객체 생성 및 추가
+            studentsData.push({
+                id: studentsData.length + 1,
+                name: name,
+                score: (mathScore + scienceScore) / 2, // 평균 성적 사용
+                subjects: subjects
+            });
 
-            function shuffleArray(array) {
-                let currentIndex = array.length, randomIndex;
-                while (currentIndex !== 0) {
-                    randomIndex = Math.floor(pseudoRandom() * currentIndex);
-                    currentIndex--;
-                    [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
-                }
-                return array;
+            // 입력 필드 초기화
+            document.getElementById('studentName').value = '';
+            document.getElementById('mathScore').value = '';
+            document.getElementById('scienceScore').value = '';
+            document.querySelectorAll('input[name="subject"]').forEach(cb => cb.checked = false);
+
+            // 학생 목록 업데이트
+            renderStudentList();
+        };
+
+        // 학생 목록 UI 렌더링 함수
+        function renderStudentList() {
+            const listContainer = document.getElementById('studentList');
+            listContainer.innerHTML = '';
+            studentsData.forEach(student => {
+                const listItem = document.createElement('li');
+                listItem.className = 'p-2 bg-white rounded-md shadow-sm border border-gray-100';
+                listItem.innerHTML = `
+                    <span class="font-bold text-gray-800">${student.name}</span> (평균 성적: ${student.score}점, 분야: ${student.subjects.join(', ')})
+                `;
+                listContainer.appendChild(listItem);
+            });
+            document.getElementById('studentCountDisplay').textContent = studentsData.length;
+        }
+
+        // 시뮬레이션 실행 함수
+        window.runSimulation = function() {
+            if (studentsData.length < 4) {
+                alert('조 편성을 위해 최소 4명 이상의 학생을 입력해주세요.');
+                return;
             }
             
-            // 페이지 로드 시 시뮬레이션 자동 실행
-            window.runSimulation();
-        });
+            // 모든 학생을 성적 순으로 정렬
+            studentsData.sort((a, b) => b.score - a.score);
+
+            // 조 개수 계산 (조 인원을 4명 또는 5명으로 맞추기 위함)
+            let numGroups = Math.ceil(studentsData.length / 5);
+            
+            // 조 배열 생성
+            const groups = Array.from({ length: numGroups }, () => []);
+
+            // '카드 돌리기' 방식으로 학생들을 조에 분배
+            for (let i = 0; i < studentsData.length; i++) {
+                const groupIndex = i % numGroups;
+                groups[groupIndex].push(studentsData[i]);
+            }
+            
+            // 결과 표시
+            displayResults(groups);
+        };
+
+        // 결과 UI 렌더링 함수
+        function displayResults(groups) {
+            const resultsContainer = document.getElementById('results-grid');
+            resultsContainer.innerHTML = '';
+            
+            groups.forEach((group, index) => {
+                const groupCard = document.createElement('div');
+                groupCard.className = 'bg-gray-50 p-6 rounded-lg shadow-md border border-gray-200';
+                groupCard.innerHTML = `
+                    <h3 class="text-xl font-semibold mb-3 text-gray-700">${index + 1}조 (인원: ${group.length}명)</h3>
+                    <ul class="space-y-2 text-gray-600">
+                        ${group.map(student => `
+                            <li class="p-2 bg-white rounded-md shadow-sm border border-gray-100 flex items-center justify-between">
+                                <span class="font-medium">${student.name}</span>
+                                <span class="text-sm text-gray-500">평균 성적: ${student.score}점, 분야: ${student.subjects.join(', ')}</span>
+                            </li>
+                        `).join('')}
+                    </ul>
+                `;
+                resultsContainer.appendChild(groupCard);
+            });
+
+            document.getElementById('results-container').scrollIntoView({ behavior: 'smooth' });
+        }
     </script>
 </body>
 </html>
