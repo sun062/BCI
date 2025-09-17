@@ -19,8 +19,8 @@ if st.sidebar.button("연구 계획서 보기"):
 if st.sidebar.button("조 편성 프로그램 보기"):
     st.session_state.page = "index2"
 
-# 새로운 버튼 추가: "선형데이터 구조 시뮬레이션"
-if st.sidebar.button("선형데이터 구조 시뮬레이션션"):
+# 새로운 버튼 추가: "선형데이터 구조"
+if st.sidebar.button("선형데이터 구조"):
     st.session_state.page = "index3"
 
 # 초기 페이지 상태 설정
@@ -61,4 +61,5 @@ elif st.session_state.page == "index3":
         st.error(f"오류: HTML 파일을 찾을 수 없습니다. '{html_file_path}' 경로를 확인해 주세요.")
     except Exception as e:
         st.error(f"HTML 파일을 불러오는 중 오류가 발생했습니다: {e}")
+
 
