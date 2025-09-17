@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>선형 데이터 구조 시뮬레이션</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f4f8;
+            color: #1a202c;
+        }
+        .container {
+            max-width: 1200px;
+            margin: auto;
+            padding: 2rem;
+        }
+        .data-structure-card {
+            background-color: #ffffff;
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            transition: transform 0.3s ease-in-out;
+        }
+        .data-structure-card:hover {
+            transform: translateY(-5px);
+        }
+        .node {
+            background-color: #4a90e2;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 9999px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease-in-out;
+            min-width: 60px;
+        }
+        .node.stack {
+            background-color: #ff6347;
+        }
+        .node.queue {
+            background-color: #2ecc71;
+        }
+        .arrow {
+            width: 30px;
+            height: 2px;
+            background-color: #4a5568;
+            position: relative;
+        }
+        .arrow::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: -4px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: transparent transparent transparent #4a5568;
+        }
+        .stack-container, .queue-container {
+            display: flex;
+            flex-direction: column-reverse;
+            align-items: center;
+            gap: 1rem;
+        }
+        .queue-container {
+            flex-direction: row;
+            justify-content: flex-start;
+        }
+        .linked-list-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            align-items: center;
+        }
+        .operation-buttons {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+        .operation-buttons button {
+            transition: all 0.2s ease-in-out;
+        }
+        .operation-buttons button:hover {
+            transform: scale(1.05);
+            opacity: 0.9;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800 p-8">
+
+<div class="container">
+    <h1 class="text-4xl font-extrabold text-center mb-10 text-gray-900">선형 데이터 구조 시뮬레이션</h1>
+    <p class="text-center text-lg text-gray-600 mb-10">
+        선형 데이터 구조인 **연결 리스트, 스택, 큐**의 작동 원리를 직접 체험해 보세요.<br>
+        아래 입력창에 숫자를 입력하고 '추가' 버튼을 눌러 각 구조의 변화를 확인해 보세요.
+    </p>
+
+    <!-- Linked List Section -->
+    <div class="data-structure-card">
+        <h2 class="text-3xl font-bold mb-4 text-gray-700">연결 리스트 (Linked List)</h2>
+        <p class="text-gray-500 mb-4">
+            각 노드가 데이터와 다음 노드의 주소를 가지고 연결된 구조입니다.
+            데이터의 추가/삭제가 용이하지만, 특정 원소에 접근하는 데는 시간이 걸립니다.
+        </p>
+        <div class="flex items-center gap-4 mb-4">
+            <input type="number" id="linkedListInput" placeholder="추가할 숫자" class="p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <button onclick="addNode('linkedList')" class="bg-blue-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                추가
+            </button>
+            <button onclick="removeNode('linkedList')" class="bg-red-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500">
+                삭제
+            </button>
+        </div>
+        <div id="linkedListContainer" class="linked-list-container min-h-[50px] bg-gray-50 p-4 rounded-lg border border-gray-200">
+            <!-- Nodes will be added here -->
+        </div>
+    </div>
+
+    <!-- Stack Section -->
+    <div class="data-structure-card">
+        <h2 class="text-3xl font-bold mb-4 text-gray-700">스택 (Stack)</h2>
+        <p class="text-gray-500 mb-4">
+            '마지막에 들어온 것이 먼저 나가는' **LIFO (Last-In, First-Out)** 구조입니다.
+            가장 최근에 추가된 데이터만 접근할 수 있습니다.
+        </p>
+        <div class="flex items-center gap-4 mb-4">
+            <input type="number" id="stackInput" placeholder="추가할 숫자" class="p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500">
+            <button onclick="addNode('stack')" class="bg-red-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500">
+                Push (추가)
+            </button>
+            <button onclick="removeNode('stack')" class="bg-red-700 text-white font-bold py-2 px-4 rounded-lg hover:bg-red-800 focus:outline-none focus:ring-2 focus:ring-red-700">
+                Pop (삭제)
+            </button>
+        </div>
+        <div id="stackContainer" class="stack-container min-h-[100px] bg-gray-50 p-4 rounded-lg border border-gray-200">
+            <!-- Nodes will be added here -->
+        </div>
+    </div>
+
+    <!-- Queue Section -->
+    <div class="data-structure-card">
+        <h2 class="text-3xl font-bold mb-4 text-gray-700">큐 (Queue)</h2>
+        <p class="text-gray-500 mb-4">
+            '먼저 들어온 것이 먼저 나가는' **FIFO (First-In, First-Out)** 구조입니다.
+            데이터가 추가되는 쪽(rear)과 삭제되는 쪽(front)이 다릅니다.
+        </p>
+        <div class="flex items-center gap-4 mb-4">
+            <input type="number" id="queueInput" placeholder="추가할 숫자" class="p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500">
+            <button onclick="addNode('queue')" class="bg-green-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500">
+                Enqueue (추가)
+            </button>
+            <button onclick="removeNode('queue')" class="bg-green-700 text-white font-bold py-2 px-4 rounded-lg hover:bg-green-800 focus:outline-none focus:ring-2 focus:ring-green-700">
+                Dequeue (삭제)
+            </button>
+        </div>
+        <div id="queueContainer" class="queue-container min-h-[100px] bg-gray-50 p-4 rounded-lg border border-gray-200">
+            <!-- Nodes will be added here -->
+        </div>
+    </div>
+</div>
+
+<script>
+    // Data structures represented as arrays
+    const linkedList = [];
+    const stack = [];
+    const queue = [];
+
+    /**
+     * Renders the visual representation of the data structures.
+     */
+    function render() {
+        // Render Linked List
+        const linkedListContainer = document.getElementById('linkedListContainer');
+        linkedListContainer.innerHTML = '';
+        if (linkedList.length === 0) {
+            linkedListContainer.innerHTML = '<span class="text-gray-400">데이터가 없습니다.</span>';
+        } else {
+            linkedList.forEach((value, index) => {
+                const nodeDiv = document.createElement('div');
+                nodeDiv.className = 'node';
+                nodeDiv.textContent = value;
+                linkedListContainer.appendChild(nodeDiv);
+
+                if (index < linkedList.length - 1) {
+                    const arrowDiv = document.createElement('div');
+                    arrowDiv.className = 'arrow';
+                    linkedListContainer.appendChild(arrowDiv);
+                }
+            });
+        }
+
+        // Render Stack
+        const stackContainer = document.getElementById('stackContainer');
+        stackContainer.innerHTML = '';
+        if (stack.length === 0) {
+            stackContainer.innerHTML = '<span class="text-gray-400">데이터가 없습니다.</span>';
+        } else {
+            stack.forEach(value => {
+                const nodeDiv = document.createElement('div');
+                nodeDiv.className = 'node stack';
+                nodeDiv.textContent = value;
+                stackContainer.appendChild(nodeDiv);
+            });
+        }
+
+        // Render Queue
+        const queueContainer = document.getElementById('queueContainer');
+        queueContainer.innerHTML = '';
+        if (queue.length === 0) {
+            queueContainer.innerHTML = '<span class="text-gray-400">데이터가 없습니다.</span>';
+        } else {
+            queue.forEach((value, index) => {
+                const nodeDiv = document.createElement('div');
+                nodeDiv.className = 'node queue';
+                nodeDiv.textContent = value;
+                queueContainer.appendChild(nodeDiv);
+            });
+        }
+    }
+
+    /**
+     * Adds a node to the specified data structure.
+     * @param {string} type The type of data structure ('linkedList', 'stack', or 'queue').
+     */
+    function addNode(type) {
+        let input;
+        let data;
+        let ds;
+
+        switch (type) {
+            case 'linkedList':
+                input = document.getElementById('linkedListInput');
+                ds = linkedList;
+                break;
+            case 'stack':
+                input = document.getElementById('stackInput');
+                ds = stack;
+                break;
+            case 'queue':
+                input = document.getElementById('queueInput');
+                ds = queue;
+                break;
+            default:
+                return;
+        }
+
+        data = input.value;
+        if (data === '') {
+            alert("숫자를 입력해주세요.");
+            return;
+        }
+
+        ds.push(data);
+        input.value = '';
+        render();
+    }
+
+    /**
+     * Removes a node from the specified data structure according to its rules.
+     * @param {string} type The type of data structure ('linkedList', 'stack', or 'queue').
+     */
+    function removeNode(type) {
+        let ds;
+        switch (type) {
+            case 'linkedList':
+                ds = linkedList;
+                if (ds.length > 0) {
+                    ds.pop(); // Simplifies removal for visualization
+                }
+                break;
+            case 'stack':
+                ds = stack;
+                if (ds.length > 0) {
+                    ds.pop(); // LIFO - remove from the end
+                }
+                break;
+            case 'queue':
+                ds = queue;
+                if (ds.length > 0) {
+                    ds.shift(); // FIFO - remove from the beginning
+                }
+                break;
+            default:
+                return;
+        }
+
+        render();
+    }
+
+    // Initial render
+    window.onload = render;
+</script>
+</body>
+</html>
